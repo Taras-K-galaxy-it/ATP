@@ -24,10 +24,12 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'car_brands' => 'required|max:25',
+            'car_brands' => 'required|string|max:255',
         ]);
-        $brand = Brand::create($request->all());
-        return redirect('car_brands.index')->with('success', 'Model added successfully');
+
+        Brand::create($request->all());
+
+        return redirect()->route('brands.index')->with('success', 'Brand added successfully');
     }
 
     /**
@@ -53,17 +55,17 @@ class BrandController extends Controller
     public function edit($id)
     {
         $brand = Brand::findOrFail($id);
-        return view('car_brands.edit', compact('brand'));    }
+        return view('car_brands.edit', compact('brand'));
+    }
 
     /**
      * Update the specified resource in storage.
      */
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            // Додайте інші правила валідації за необхідністю
+            'car_brands' => 'required|string|max:255',
         ]);
 
         $brand = Brand::findOrFail($id);
@@ -75,7 +77,7 @@ class BrandController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(int $id)
     {
         $brand = Brand::findOrFail($id);
         $brand->delete();

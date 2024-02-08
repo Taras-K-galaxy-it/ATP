@@ -1,38 +1,41 @@
 @extends('car_brands.layout')
+
 @section('content')
-    <div class="mt-8">
-        @if(session()->get('success'))
-            <div class="bg-green-500 text-white p-4 mb-4">
-                {{ session()->get('success') }}
-            </div>
-        @endif
-        <table class="table-auto w-full">
-            <thead>
-            <tr class="bg-yellow-300">
-                <th class="px-4 py-2">ID</th>
-                <th class="px-4 py-2">Car Brands</th>
+    <div>
+            @if(session()->get('success'))
+                <div class="{{ session()->get('success') ? 'bg-green-500' : 'bg-red-500' }} text-white p-1 my-2">
+                    {{ session()->get('success') }}
+                </div>
+            @endif
 
-                <th class="px-4 py-2 text-center">Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($brands as $brand)
-                <tr>
-                    <td class="border px-4 py-2">{{ $brand->id }}</td>
-                    <td class="border px-4 py-2">{{ $brand->car_brands }}</td>
+        <div class="flex flex-row-reverse mt-1 py-1">
+            <a href="{{ route('brands.create') }}" class="bg-green-500 text-white mb-1 mr-1 px-3 py-0.5 rounded">Add Brand Car</a>
+        </div>
+                <table class="mx-auto px-4 border border-black">
+                    <thead>
+                    <tr>
+                        <th class="py-2 px-2 border border-black">ID</th>
+                        <th class="py-2 px-8 border border-black">Car Brands</th>
+                        <th class="py-2 px-4 text-center border border-black">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($brands as $brand)
+                        <tr>
+                            <td class="border px-1 py-2 border-black text-center">{{ $brand->id }}</td>
+                            <td class="border px-4 py-2 border-black">{{ $brand->car_brands }}</td>
+                            <td class="border px-1 py-2 text-center border-black">
+                                <a href="{{ route('brands.edit', $brand->id) }}" class="bg-blue-500 text-white px-2 py-1 rounded">Edit</a>
+                                <form action="{{ route('brands.destroy', $brand->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="bg-red-500 text-white px-2 py-1 mt-2 rounded" type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
 
-                    <td class="border px-4 py-2 text-center">
-                        <a href="{{ route('brands.edit', $brand->id) }}" class="bg-blue-500 text-white px-2 py-1 rounded">Edit</a>
-                        <form action="{{ route('brands.destroy', $brand->id) }}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <button class="bg-red-500 text-white px-2 py-1 rounded" type="submit">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
     </div>
-
 @endsection
