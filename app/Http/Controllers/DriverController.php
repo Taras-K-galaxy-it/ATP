@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Driver;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Carbon;
 
 class DriverController extends Controller
 {
@@ -25,11 +25,9 @@ class DriverController extends Controller
         $request->validate([
             //todo photo
             'firstname' => 'required|string|max:255',
-            'lastname' => 'required|string|max:255',
-            'birthdate' => [
-                'nullable',
-                'date',
-                Rule::before(now()->subYears(65)),],
+            'lastname'  => 'required|string|max:255',
+            'birthdate' => 'required|date|after:' . Carbon::now()->subYears(65)->format('Y-m-d'),
+
         ]);
         Driver::create($request->all());
         return redirect()->route('drivers.index')->with('success', 'Driver added successfully');
@@ -38,7 +36,7 @@ class DriverController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Driver $driver)
     {
         //
     }
@@ -65,15 +63,15 @@ class DriverController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            //TODO photo
             'firstname' => 'required|string|max:255',
-            'lastname' => 'required|string|max:255',
-            'birthdate' => [
-                'nullable',
-                'date',
-                Rule::before(now()->subYears(65)),],
-        ]);
-        return redirect()->route('brands.index')->with('success', 'Driver updated successfully');
+            'lastname'  => 'required|string|max:255',
+            'birthdate' => 'required|date|before:' . Carbon::now()->subYears(65)->format('Y-m-d'),
+            ]);
+
+        $driver = Driver::findOrFail($id);
+        $driver->update($request->all());
+
+        return redirect()->route('drivers.index')->with('success', 'Driver updated successfully');
     }
 
     /**
@@ -83,6 +81,6 @@ class DriverController extends Controller
     {
         $driver = Driver::findOrFail($id);
         $driver-> delete();
-        return redirect()->route('drivers.index')-with('success', 'Driver deleted successfully');
+        return redirect()->route('drivers.index')->with('success', 'Brand deleted successfully');
     }
 }
