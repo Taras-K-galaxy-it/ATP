@@ -1,4 +1,4 @@
-@extends('car_brands.layout')
+@extends('layout')
 
 @section('content')
     <div>
@@ -19,9 +19,10 @@
                         </ul>
                     </div>
                 @endif
-                    <lable for="car_brands">Add Car Brand</lable>
-                    <input type="text" class="mt-1 p-0.5 block w-full rounded-md border border-black drop-shadow-lg" name="car_brands"/>
-                    <button type="submit" class="bg-green-500 text-white mt-7 py-1 px-3.5 rounded">Add Brand</button>
+                <lable for="car_brands">Add Car Brand</lable>
+                <input type="text" class="mt-1 p-0.5 block w-full rounded-md border border-black drop-shadow-lg"
+                       name="car_brands"/>
+                <button type="submit" class="bg-green-500 text-white mt-7 py-1 px-3.5 rounded">Add Brand</button>
             </form>
         </div>
     </div>
