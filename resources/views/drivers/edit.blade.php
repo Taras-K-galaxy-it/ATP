@@ -11,11 +11,11 @@
 
             <p>Update Driver</p>
             <input type="text" class="mt-1 p-0.5 block w-full rounded-md border border-black drop-shadow-lg"
-                   name="drivers" value="{{ $driver->firstname }}">
+                   name="firstname" value="{{ $driver->firstname }}">
             <input type="text" class="mt-1 p-0.5 block w-full rounded-md border border-black drop-shadow-lg"
                    name="lastname" value="{{ $driver->lastname }}">
             <input type="date" class="mt-1 p-0.5 block w-full rounded-md border border-black drop-shadow-lg"
-                   name="lastname" value="{{ $driver->birthdate }}">
+                   name="birthdate" value="{{ $driver->birthdate }}">
             <button type="submit" class="bg-green-500 text-white mt-7 py-1 px-3.5 rounded">Update</button>
         </form>
     </div>

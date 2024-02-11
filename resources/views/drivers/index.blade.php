@@ -27,7 +27,7 @@
             <tbody>
             @foreach($drivers as $driver)
                 <tr>
-                    <td class="border px-1 py-2 border-black text-center">{{ $driver->photo }}</td>
+                    <td class="border px-1 py-2 border-black text-center">{{ $driver->photo }} <img src="{{ asset('storage/images' . $driver->photo) }}" alt="driver photo"></td>
                     <td class="border px-1 py-2 border-black text-center">{{ $driver->id }}</td>
                     <td class="border px-1 py-2 border-black text-center">{{ $driver->firstname }}</td>
                     <td class="border px-1 py-2 border-black text-center">{{ $driver->lastname }}</td>

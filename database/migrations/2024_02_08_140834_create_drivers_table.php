@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->date('birthdate')->nullable();
-            //TODO photo
+            $table->string('photo');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrentOnUpdate();
         });

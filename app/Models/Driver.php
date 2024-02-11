@@ -13,5 +13,6 @@ class Driver extends Model
         'firstname',
         'lastname',
         'birthdate',
+        'photo',
     ];
 }

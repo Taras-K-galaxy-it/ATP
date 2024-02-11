@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Driver;
+use App\Models\Photo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -22,15 +23,23 @@ class DriverController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            //todo photo
-            'firstname' => 'required|string|max:255',
-            'lastname'  => 'required|string|max:255',
-            'birthdate' => 'required|date|after:' . Carbon::now()->subYears(65)->format('Y-m-d'),
+       $request->validate([
 
-        ]);
-        Driver::create($request->all());
-        return redirect()->route('drivers.index')->with('success', 'Driver added successfully');
+           'firstname' => 'required|string|max:255',
+           'lastname'  => 'required|string|max:255',
+           'birthdate' => 'required|date|after:' . Carbon::now()->subYears(65)->format('Y-m-d'),
+           'photo'     => 'required|mimes:jpeg,png,jpg',
+
+       ]);
+
+       $name = $request->file('photo')->getClientOriginalName();
+       $request->file('photo')->storeAs('images/', $name);
+       $request->photo = $name;
+       /*$driver = new Driver();
+       $driver->photo = $name;*/
+
+       Driver::create($request->all());
+       return redirect()->route('drivers.index')->with('success', 'Driver added successfully');
     }
 
     /**
@@ -60,19 +69,20 @@ class DriverController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'firstname' => 'required|string|max:255',
-            'lastname'  => 'required|string|max:255',
-            'birthdate' => 'required|date|before:' . Carbon::now()->subYears(65)->format('Y-m-d'),
+        public function update(Request $request, $id)
+        {
+            $request->validate([
+                'firstname' => 'required|string|max:255',
+                'lastname'  => 'required|string|max:255',
+                'birthdate' => 'required|date|after:' . Carbon::now()->subYears(65)->format('Y-m-d'),
+                'photo'     => 'required|mimes:jpeg,png,jpg',
             ]);
 
-        $driver = Driver::findOrFail($id);
-        $driver->update($request->all());
+            $driver = Driver::findOrFail($id);
+            $driver->update($request->all());
 
-        return redirect()->route('drivers.index')->with('success', 'Driver updated successfully');
-    }
+            return redirect()->route('drivers.index')->with('success', 'Driver updated successfully');
+        }
 
     /**
      * Remove the specified resource from storage.
