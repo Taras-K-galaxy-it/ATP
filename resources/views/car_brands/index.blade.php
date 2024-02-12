@@ -8,10 +8,11 @@
             </div>
         @endif
 
-        <div class="flex flex-row-reverse mt-1 py-1">
-            <a href="{{ route('brands.create') }}" class="bg-green-500 text-white mb-1 mr-1 px-3 py-0.5 rounded">Add
-                Brand Car</a>
-        </div>
+            <div class="flex justify-center my-2 py-1">
+                <a href="{{ route('drivers.create') }}" class="bg-green-500 text-white mb-1 mr-1 px-3 py-0.5 rounded">Add Driver</a>
+                <a href="{{ route('brands.create') }}" class="bg-green-500 text-white mb-1 mr-1 px-3 py-0.5 rounded">Add Model</a>
+                <a href="{{ route('buses.create') }}" class="bg-green-500 text-white mb-1 mr-1 px-3 py-0.5 rounded">Add Bus</a>
+            </div>
         <table class="mx-auto px-4 border border-black">
             <thead>
             <tr>
@@ -31,7 +32,7 @@
                         <form action="{{ route('brands.destroy', $brand->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button class="bg-red-500 text-white px-2 py-1 mt-2 rounded" type="submit">Delete</button>
+                            <button type="submit" class="bg-red-500 text-white px-2 py-1 mt-2 rounded" >Delete</button>
                         </form>
                     </td>
                 </tr>

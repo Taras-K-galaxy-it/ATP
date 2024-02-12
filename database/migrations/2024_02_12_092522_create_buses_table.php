@@ -11,13 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('drivers', function (Blueprint $table) {
+        Schema::create('buses', function (Blueprint $table) {
             $table->id();
-            $table->string('firstname');
-            $table->string('lastname');
-            $table->date('birthdate')->nullable();
+            $table->string('license_plate')->unique();
+            $table->string('brand');
+            $table->unsignedBigInteger('driver_id')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrentOnUpdate();
+
+            $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('set null');
         });
     }
+
 };

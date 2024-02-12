@@ -8,34 +8,42 @@
             </div>
         @endif
 
-        <div>
-            <a href="{{ route('drivers.create') }}" class="">Add Driver</a>
-        </div>
-        <table>
+            <div class="flex justify-center my-2 py-1">
+                <a href="{{ route('drivers.create') }}" class="bg-green-500 text-white mb-1 mr-1 px-3 py-0.5 rounded">Add Driver</a>
+                <a href="{{ route('brands.create') }}" class="bg-green-500 text-white mb-1 mr-1 px-3 py-0.5 rounded">Add Model</a>
+                <a href="{{ route('buses.create') }}" class="bg-green-500 text-white mb-1 mr-1 px-3 py-0.5 rounded">Add Bus</a>
+            </div>
+
+            <table class="mx-auto px-4 border border-black">
             <thead>
             <tr>
-                <th>Photo</th>
-                <th>ID</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Birthdate</th>
+                <th class="py-2 px-2 border border-black">ID</th>
+                <th class="py-2 px-2 border border-black">Firstname</th>
+                <th class="py-2 px-2 border border-black">Lastname</th>
+                <th class="py-2 px-2 border border-black">Birthdate</th>
+                <th class="py-2 px-2 border border-black">Salary</th>
+                <th class="py-2 px-2 border border-black">Gmail</th>
+                <th class="py-2 px-4 text-center border border-black">Action</th>
+
             </tr>
             </thead>
 
             <tbody>
             @foreach($drivers as $driver)
                 <tr>
-                    <td>{{ $driver->photo }}</td>
-                    <td>{{ $driver->id }}</td>
-                    <td>{{ $driver->firstname }}</td>
-                    <td>{{ $driver->lastname }}</td>
-                    <td>{{ $driver->birthdate }}</td>
-                    <td>
-                        <a href="{{ route('drivers.edit', $driver->id) }}">Edit</a>
-                        <form action="{{ route('$drivers.destroy', $driver->id) }}" method="POST">
+                    <td class="border px-1 py-2 border-black text-center">{{ $driver->id }}</td>
+                    <td class="border px-1 py-2 border-black text-center">{{ $driver->firstname }}</td>
+                    <td class="border px-1 py-2 border-black text-center">{{ $driver->lastname }}</td>
+                    <td class="border px-1 py-2 border-black text-center">{{ $driver->birthdate }}</td>
+                    <td class="border px-1 py-2 border-black text-center">{{ $driver->salary }}</td>
+                    <td class="border px-1 py-2 border-black text-center">{{ $driver->email }}</td>
+
+                    <td class="border px-1 py-2 border-black text-center">
+                        <a href="{{ route('drivers.edit', $driver->id) }}" class="bg-blue-500 text-white px-2 py-1 rounded">Edit</a>
+                        <form action="{{ route('drivers.destroy', $driver->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">Delete</button>
+                            <button type="submit" class="bg-red-500 text-white px-2 py-1 mt-2 rounded">Delete</button>
                         </form>
                     </td>
                 </tr>
@@ -44,3 +52,4 @@
             </tbody>
         </table>
     </div>
+@endsection

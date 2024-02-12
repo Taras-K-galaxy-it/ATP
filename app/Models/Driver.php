@@ -13,5 +13,11 @@ class Driver extends Model
         'firstname',
         'lastname',
         'birthdate',
+        'salary',
+        'email',
     ];
+    public function buses()
+    {
+        return $this->hasMany(Bus::class);
+    }
 }
